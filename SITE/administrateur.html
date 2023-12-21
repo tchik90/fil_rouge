@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/style.css">  
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="./script/crud_agent.js" defer></script>
+</head>
     <title>Fil Rouge</title>
 </head>
 <body>
@@ -38,37 +39,57 @@
         </nav>
     </header>
     <main>
-        <h1 class="mt-5 mb-5">Gestion des agents de la bibliothèque</h1>
+        <h1 class="mt-5">Gestion des agents de la bibliothèque</h1>
         <div class="container mt-3">
-            <h2 class="mt-3 mb-4">Liste des agents</h2>
+            <h2 class="mt-3 mb-3">Liste des agents</h2>
             <div id="listeAgents"></div>
-            <h2 class="mt-5 mb-4">Ajouter agent</h2>
-            <button id="ajouterAgentBtn" class="btn btn-primary">Ajouter</button>
 
-            <!-- Formulaire Modifier -->
-            <div id="formulaireAjouterAgent" class="mt-3" style="display: none;">
-                <form id="formulaireModifier">
+            <h2 class="mt-3 mb-3">Ajouter / Modifier agent</h2>
+            <!-- Formulaire Ajouter -->
+            <div id="formulaireAgentAjout" class="mt-3">
+                <form id="formulaireAjout">
                     <div class="form-group">
                         <label for="identifiant">Identifiant :</label>
                         <input type="text" id="identifiant" class="form-control" required>
                     </div>
-        
+            
                     <div class="form-group">
                         <label for="mdp">Mot de passe :</label>
                         <input type="password" id="mdp" class="form-control" required>
                     </div>
-        
+            
                     <div class="form-group">
                         <label for="role">Rôle :</label>
-                        <input type="number" id="role" class="form-control" required>
+                        <select id="role" class="form-control" required>
+                            <option value="1">1- Bibliothécaire</option>
+                            <option value="2">2- Administrateur</option>
+                            <option value="3">3- Responsable</option>
+                        </select>
                     </div>
-        
+            
+                    <button type="submit" class="btn btn-success mt-3">Ajouter</button>
+                    <button type="button" id="annulerFormulaireAjoutBtn" class="btn btn-secondary mt-3">Annuler</button>
+                </form>
+            </div>
+
+            <!-- Formulaire Modifier -->
+            <div id="formulaireAgentModifier" class="mt-3 d-none">
+                <form id="formulaireModifier">
+                    <div class="form-group">
+                        <label for="identifiantModifier">Identifiant :</label>
+                        <input type="text" id="identifiantModifier" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mdpModifier">Mot de passe :</label>
+                        <input type="password" id="mdpModifier" class="form-control" required>
+                    </div>
+
                     <button type="submit" class="btn btn-success mt-3">Modifier</button>
-                    <button type="button" id="annulerModifierFormulaireBtn" class="btn btn-secondary mt-3">Annuler</button>
+                    <button type="button" id="annulerFormulaireModifierBtn" class="btn btn-secondary mt-3">Annuler</button>
                 </form>
             </div>
         </div>
-        
 
     </main>
 
