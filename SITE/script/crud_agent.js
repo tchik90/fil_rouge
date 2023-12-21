@@ -1,27 +1,25 @@
-
 // Tableau des agents de la médiathèque
-var objMediatheque = JSON.parse(localStorage.getItem('objMediatheque')) || [];
-
 var objMediatheque = [
-    {
+    { 
         identifiant: "Bib01",
-        mdp: "bibliothecaire",
+        mdp: "bibliothecaire", 
         role: 1,
     },
-    {
+    { 
         identifiant: "Admin01",
         mdp: "admin",
         role: 2,
     },
-    {
+    { 
         identifiant: "Resp01",
         mdp: "responsable",
         role: 3,
     },
 ];
 
-// Fonction pour afficher la liste des agents dans un tableau
+// Fonction pour afficher la liste des agents sous forme de tableau
 function afficherAgents() {
+    var objMediatheque = JSON.parse(localStorage.getItem('objMediatheque')) || [];
     var listeAgents = document.getElementById('listeAgents');
     listeAgents.innerHTML = '';
 
@@ -74,152 +72,161 @@ function afficherAgents() {
     listeAgents.appendChild(table);
 }
 
-// Fonction pour ouvrir le formulaire d'ajout
-function ouvrirFormulaireAjouter() {
-    var formulaire = document.createElement('div');
-    formulaire.innerHTML = document.getElementById('formulaireAjouterAgent').outerHTML;
-
-    // Vérifier si formulaire n'est pas null avant d'ajouter l'écouteur d'événements
-    if (formulaire) {
-        var identifiant = formulaire.querySelector('#identifiant');
-        var mdp = formulaire.querySelector('#mdp');
-        var role = formulaire.querySelector('#role');
-
-        identifiant.value = '';
-        mdp.value = '';
-        role.value = '';
-
-        Swal.fire({
-            title: 'Ajouter Agent',
-            html: formulaire,
-            showCancelButton: false,
-            showConfirmButton: false,
-            didOpen: function () {
-                document.getElementById('formulaireAjouterAgent').style.display = 'block';
-            },
-            willClose: function () {
-                document.getElementById('formulaireAjouterAgent').style.display = 'none';
-            }
-        });
-
-        formulaire.querySelector('form').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            var formData = {
-                identifiant: identifiant.value,
-                mdp: mdp.value,
-                role: role.value,
-            };
-
-            ajouterAgent(formData);
-
-            Swal.close();
-            afficherAgents();
-        });
-
-        formulaire.querySelector('#annulerAjouterFormulaireBtn').addEventListener('click', fermerFormulaire);
-    }
-}
-
 // Fonction pour ajouter un agent
-function ajouterAgent(agent) {
-    // Vérifier si l'identifiant n'existe pas déjà
-    if (!agentExiste(agent.identifiant)) {
-        objMediatheque.push(agent);
-        sauvegarderDansLocalStorage();
-    } else {
-        // Afficher un message d'erreur ou gérer la situation d'ajout en double
-        console.error('L\'identifiant existe déjà. Veuillez choisir un autre identifiant.');
+function ajouterAgent(identifiant, mdp, role) {// Vérifier si l'identifiant existe déjà
+    if (identifiantExiste(identifiant, -1)) {
+        Swal.fire('Erreur', 'Cet identifiant est déjà utilisé. Veuillez en choisir un autre.', 'error');
+        return;
     }
+    var agent = {
+        identifiant: identifiant,
+        mdp: mdp,
+        role: role
+    };
+
+    // Ajout d'un nouvel agent
+    objMediatheque.push(agent);
+    sauvegarderDansLocalStorage();
+    afficherAgents();
+    fermerFormulaire();
+    Swal.fire('Succès', 'Agent ajouté avec succès !', 'success');
 }
 
-// Fonction pour ouvrir le formulaire de modification
-function ouvrirFormulaireModifier(index) {
-    var formulaire = document.getElementById('formulaireModifier'); // Assurez-vous que l'élément existe
-    formulaire.reset();
 
-    var agent = objMediatheque[index];
 
-    // Remplir le formulaire avec les données actuelles
-    document.getElementById('identifiant').value = agent.identifiant;
-    document.getElementById('mdp').value = agent.mdp;
-    document.getElementById('role').value = agent.role;
 
-    Swal.fire({
-        title: 'Modifier Agent',
-        html: document.getElementById('formulaireModifierAgent').outerHTML,
-        showCancelButton: false,
-        showConfirmButton: false,
-        didOpen: function () {
-            document.getElementById('formulaireModifierAgent').style.display = 'block';
-        },
-        willClose: function () {
-            document.getElementById('formulaireModifierAgent').style.display = 'none';
-        }
-    });
-
-    document.getElementById('formulaireModifier').addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        var formData = {
-            identifiant: document.getElementById('identifiant').value,
-            mdp: document.getElementById('mdp').value,
-            role: document.getElementById('role').value,
-        };
-
-        modifierAgent(index, formData);
-
-        Swal.close();
-        afficherAgents();
-    });
-
-    document.getElementById('annulerModifierFormulaireBtn').addEventListener('click', fermerFormulaire);
-}
 
 // Fonction pour modifier un agent
-function modifierAgent(index, agent) {
-    // Vérifier si le nouvel identifiant n'existe pas déjà (sauf à l'index actuel)
-    if (!agentExiste(agent.identifiant, index)) {
-        objMediatheque[index] = agent;
-        sauvegarderDansLocalStorage();
-    } else {
-        // Afficher un message d'erreur ou gérer la situation de modification en double
-        console.error('L\'identifiant existe déjà. Veuillez choisir un autre identifiant.');
+function modifierAgent(identifiant, mdp, index) {
+    // Vérifier si l'identifiant est déjà utilisé
+    if (identifiantExiste(identifiant, index)) {
+        Swal.fire('Erreur', 'Cet identifiant est déjà utilisé. Veuillez en choisir un autre.', 'error');
+        return;
+    }
+
+    var agent = {
+        identifiant: identifiant,
+        mdp: mdp,
+        role: objMediatheque[index].role
+    };
+
+    // Modification d'un agent existant
+    objMediatheque[index] = agent;
+    sauvegarderDansLocalStorage();
+    afficherAgents();
+    fermerFormulaire();
+    Swal.fire('Succès', 'Agent modifié avec succès !', 'success');
+}
+
+
+
+
+
+// Fonction pour vérifier si un identifiant existe déjà
+function identifiantExiste(identifiant, index) {
+    return objMediatheque.some((agent, i) => i !== index && agent.identifiant === identifiant);
+}
+
+// Fonction pour ouvrir le formulaire en mode ajout ou modification
+function ouvrirFormulaire(type, index) {
+    var formulaireAjout = document.getElementById('formulaireAgentAjout');
+    var formulaireModifier = document.getElementById('formulaireAgentModifier');
+    var titreFormulaire = document.getElementById('titreFormulaire');
+
+    if (type === 'ajouter') {
+        formulaireAjout.classList.remove('d-none');
+        formulaireModifier.classList.add('d-none');
+        titreFormulaire.textContent = 'Ajouter agent';
+    } else if (type === 'modifier') {
+        formulaireAjout.classList.add('d-none');
+        formulaireModifier.classList.remove('d-none');
+        titreFormulaire.textContent = 'Modifier agent';
+
+        // Remplir le formulaire avec les données de l'agent à modifier
+        document.getElementById('identifiantModifier').value = objMediatheque[index].identifiant;
+        document.getElementById('mdpModifier').value = objMediatheque[index].mdp;
+        document.getElementById('roleModifier').value = objMediatheque[index].role;
+        document.getElementById('indexModifier').value = index;
     }
 }
+
+// Gestionnaire d'événement pour soumettre le formulaire d'ajout
+document.getElementById('formulaireAjout').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    var identifiant = document.getElementById('identifiant').value;
+    var mdp = document.getElementById('mdp').value;
+    var role = document.getElementById('role').value;
+
+    ajouterAgent(identifiant, mdp, role);
+});
+
+// Gestionnaire d'événement pour soumettre le formulaire de modification
+document.getElementById('formulaireModifier').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    var identifiant = document.getElementById('identifiantModifier').value;
+    var mdp = document.getElementById('mdpModifier').value;
+    var index = document.getElementById('indexModifier').value;
+
+    modifierAgent(identifiant, mdp, index);
+});
+
+// Gestionnaire d'événement pour annuler l'ajout ou la modification
+document.getElementById('annulerFormulaireAjoutBtn').addEventListener('click', function() {
+    fermerFormulaire();
+});
+
+document.getElementById('annulerFormulaireModifierBtn').addEventListener('click', function() {
+    fermerFormulaire();
+});
 
 // Fonction pour fermer le formulaire
 function fermerFormulaire() {
-    Swal.close();
-    document.getElementById('formulaireAjouterAgent').style.display = 'none';
-    document.getElementById('formulaireModifierAgent').style.display = 'none';
-}
+    var formulaireAjout = document.getElementById('formulaireAgentAjout');
+    var formulaireModifier = document.getElementById('formulaireAgentModifier');
 
-// Fonction pour vérifier si un agent avec l'identifiant donné existe déjà
-function agentExiste(identifiant, currentIndex) {
-    currentIndex = currentIndex || -1;
-    return objMediatheque.some(function (agent, index) {
-        return agent.identifiant === identifiant && index !== currentIndex;
-    });
+    formulaireAjout.classList.remove('d-none');
+    formulaireModifier.classList.add('d-none');
+
+    // Réinitialiser le formulaire
+    document.getElementById('formulaireAjout').reset();
+    document.getElementById('formulaireModifier').reset();
 }
 
 // Fonction pour supprimer un agent
 function supprimerAgent(index) {
-    Swal.fire({
-        title: 'Supprimer Agent',
-        text: 'Êtes-vous sûr de vouloir supprimer cet agent ?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Oui, supprimer !',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            objMediatheque.splice(index, 1);
-            sauvegarderDansLocalStorage();
-            afficherAgents();
-        }
-    });
+    // Vérifier le rôle de l'agent à supprimer
+    var roleASupprimer = objMediatheque[index].role;
+
+    // Vérifier s'il reste au moins un administrateur
+    var nbAdminsRestants = objMediatheque.filter(agent => agent.role === 2).length;
+
+    // Si l'agent à supprimer est un administrateur et il reste un seul administrateur, afficher un message d'erreur
+    if (roleASupprimer === 2 && nbAdminsRestants === 1) {
+        Swal.fire({
+            title: 'Erreur',
+            text: 'Il doit y avoir au moins un administrateur. Impossible de supprimer le dernier administrateur.',
+            icon: 'error',
+        });
+    } else {
+        Swal.fire({
+            title: 'Supprimer Agent',
+            text: 'Êtes-vous sûr de vouloir supprimer cet agent ?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Oui, supprimer !',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                objMediatheque.splice(index, 1);
+                sauvegarderDansLocalStorage();
+                afficherAgents();
+                Swal.fire('Succès', 'Agent supprimé avec succès !', 'success');
+            }
+        });
+    }
 }
 
 function sauvegarderDansLocalStorage() {
@@ -227,17 +234,16 @@ function sauvegarderDansLocalStorage() {
 }
 
 // Gestion des événements
-document.getElementById('ajouterAgentBtn').addEventListener('click', function () {
-    ouvrirFormulaireAjouter();
-});
 
-document.addEventListener('click', function (event) {
+document.addEventListener('click', function(event) {
     if (event.target.classList.contains('modifierAgentBtn')) {
         var index = event.target.getAttribute('data-index');
-        ouvrirFormulaireModifier(index);
+        ouvrirFormulaire('modifier', index);
     } else if (event.target.classList.contains('supprimerAgentBtn')) {
         var index = event.target.getAttribute('data-index');
         supprimerAgent(index);
+    } else if (event.target.id === 'annulerFormulaireAjoutBtn' || event.target.id === 'annulerFormulaireModifierBtn') {
+        fermerFormulaire();
     }
 });
 
