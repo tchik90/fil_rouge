@@ -1,45 +1,319 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Open+Sans&family=Oswald&family=PT+Sans+Narrow&family=Roboto&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Open+Sans&family=Oswald&family=PT+Sans+Narrow&family=Roboto&display=swap"
+        rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Luckiest+Guy&family=Open+Sans&family=Oswald&family=PT+Sans+Narrow&family=Roboto&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Luckiest+Guy&family=Open+Sans&family=Oswald&family=PT+Sans+Narrow&family=Roboto&display=swap"
+        rel="stylesheet">
     <script src="https://kit.fontawesome.com/f8d0d04345.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/style.css">  
-    <title>Fil Rouge</title>
+
+    <script src="script/albums.js"></script>
+    <script src="script/auteurs.js"></script>
+    <script src="script/series.js"></script>
+
+    <script src="script/utilisateurs.js"></script>
+    <script src="script/infos_bd.js"></script>
 </head>
+
 <body>
-    <h1 class="mt-5">LES BD DU MOIS</h1>
-    <a href="SITE/index.html">LE LIEN</a>
+    <style>
+        body {
+            --orange: #ffcc00;
+            --gris: #777E90;
+            --background: #D9D9D9;
+
+            background-color: var(--background);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-family: 'Luckiest Guy', cursive;
+            color: var(--orange);
+            text-align: center;
+            text-shadow: 5px 5px 15px black;
+        }
+
+        .btn {
+            background-color: var(--orange);
+            color: black;
+            border: none;
+        }
+
+        .btn:hover {
+            background-color: var(--orange);
+            color: black;
+            box-shadow: 5px 5px 10px var(--gris);
+        }
+    </style>
+    <div class="container mt-5">
+        <h1>Gestion des Local Storage</h1>
+
+        <div class="d-flex justify-content-center">
+            <button id="addLT" class="btn btn-success mx-1 my-3">RESET LS</button>
+            <button id="clearLT" class="btn btn-success mx-1 my-3">VIDER LS</button>
+        </div>
+
+        <h1 class="mt-5">Lien vers le site</h1>
+        <div class="d-flex justify-content-center">
+            <a href="SITE/index.html"><button class="btn btn-success my-3">FIL-ROUGE</button></a>
+        </div>
+    </div>
 
 
-      <footer class="monFooter text-center mt-5">
-        <div class="container p-1 px-5">
-          <hr>
-        </div>
-        <div class="text-center pb-3">
-              <a href="" class="me-4 text-reset">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="" class="me-4 text-reset">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="" class="me-4 text-reset">
-                <i class="fab fa-google"></i>
-              </a>
-              <a href="" class="me-4 text-reset">
-                <i class="fab fa-instagram"></i>
-              </a>
-              <span class="ms-5">@2023 Centre culturel des Marmusots. All rights reserved.</span>
-        </div>
-      </footer>
-    
+    <script>
+        console.log(tUsers)
+        // CLIC SUR RESET LT
+        addLT.onclick = () => {
+            localStorage.clear();
+            var nbrBd = nbrExemplaireBd()
+            var stockBd = stockAleatoire();
+            var cdeBd = codeBdAleatoire();
+            localStorage.setItem('toute_les_bds', JSON.stringify(tInfos));
+
+            var tDixBds = tableauBds();
+            localStorage.setItem('users', JSON.stringify(tUsers));
+            localStorage.setItem('bds', JSON.stringify(tDixBds));
+
+            alert("Local Storage remis à zéro")
+        };
+        // CLIC SUR VIDER LT
+        clearLT.onclick = () => {
+            localStorage.clear()
+            alert("Local Storage vidé")
+        }
+
+        function recupBds() {
+            var tInfos = JSON.parse(localStorage.getItem('bds'))
+            for (i = 0; i < 10; i++) {
+                console.log(tInfos[i])
+            }
+        }
+        function tableauBds() {
+            tInfos = [
+                {
+                    "titre": "Croc vert",
+                    "numero": "23",
+                    "idSerie": "6",
+                    "idAuteur": "13",
+                    "prix": "24.50",
+                    "idAlbum": "1",
+                    "nomAuteur": "Franquin, Batem, Colman",
+                    "nomSerie": "Marsupilami",
+                    "infosTitre": "Croc vert - Marsupilami - Franquin, Batem, Colman",
+                    "infosAuteur": "Franquin, Batem, Colman - Marsupilami - Croc vert",
+                    "infosSerie": "Marsupilami - Croc vert - Franquin, Batem, Colman",
+                    "exemplaires": 2,
+                    "stock": 0,
+                    "cdeDispo": []
+                },
+                {
+                    "titre": "Machine qui rêve",
+                    "numero": "46",
+                    "idSerie": "2",
+                    "idAuteur": "14",
+                    "prix": "23.50",
+                    "idAlbum": "2",
+                    "nomAuteur": "Tome, Janry",
+                    "nomSerie": "Spirou et Fantasio",
+                    "infosTitre": "Machine qui rêve - Spirou et Fantasio - Tome, Janry",
+                    "infosAuteur": "Tome, Janry - Spirou et Fantasio - Machine qui rêve",
+                    "infosSerie": "Spirou et Fantasio - Machine qui rêve - Tome, Janry",
+                    "exemplaires": 3,
+                    "stock": 1,
+                    "cdeDispo": ["2.1"]
+                },
+                {
+                    "titre": "La guerre des gloutons (II)",
+                    "numero": "13",
+                    "idSerie": "16",
+                    "idAuteur": "11",
+                    "prix": "14.50",
+                    "idAlbum": "3",
+                    "nomAuteur": "Arleston, Mourier",
+                    "nomSerie": "Trolls de Troy",
+                    "infosTitre": "La guerre des gloutons (II) - Trolls de Troy - Arleston, Mourier",
+                    "infosAuteur": "Arleston, Mourier - Trolls de Troy - La guerre des gloutons (II)",
+                    "infosSerie": "Trolls de Troy - La guerre des gloutons (II) - Arleston, Mourier",
+                    "exemplaires": 4,
+                    "stock": 2,
+                    "cdeDispo": ["3.1", "3.4"]
+                },
+                {
+                    "titre": "Le jour du Mayflower",
+                    "numero": "20",
+                    "idSerie": "10",
+                    "idAuteur": "16",
+                    "prix": "12",
+                    "idAlbum": "4",
+                    "nomAuteur": "Jigounov, Sente",
+                    "nomSerie": "XIII",
+                    "infosTitre": "Le jour du Mayflower - XIII - Jigounov, Sente",
+                    "infosAuteur": "Jigounov, Sente - XIII - Le jour du Mayflower",
+                    "infosSerie": "XIII - Le jour du Mayflower - Jigounov, Sente",
+                    "exemplaires": 3,
+                    "stock": 3,
+                    "cdeDispo": ["4.1", "4.2", "4.3"]
+                },
+                {
+                    "titre": "La griffe de Rome",
+                    "numero": "03",
+                    "idSerie": "17",
+                    "idAuteur": "9",
+                    "prix": "14.50",
+                    "idAlbum": "5",
+                    "nomAuteur": "Arleston, Hubsch",
+                    "nomSerie": "Le chant d'excalibur",
+                    "infosTitre": "La griffe de Rome - Le chant d'excalibur - Arleston, Hubsch",
+                    "infosAuteur": "Arleston, Hubsch - Le chant d'excalibur - La griffe de Rome",
+                    "infosSerie": "Le chant d'excalibur - La griffe de Rome - Arleston, Hubsch",
+                    "exemplaires": 5,
+                    "stock": 3,
+                    "cdeDispo": ["5.1", "5.2", "5.3"]
+                },
+                {
+                    "titre": "Le Waltras",
+                    "numero": "07",
+                    "idSerie": "13",
+                    "idAuteur": "8",
+                    "prix": "15.20",
+                    "idAlbum": "6",
+                    "nomAuteur": "Gaudin, Danard",
+                    "nomSerie": "Marlysa",
+                    "infosTitre": "Le Waltras - Marlysa - Gaudin, Danard",
+                    "infosAuteur": "Gaudin, Danard - Marlysa - Le Waltras",
+                    "infosSerie": "Marlysa - Le Waltras - Gaudin, Danard",
+                    "exemplaires": 5,
+                    "stock": 3,
+                    "cdeDispo": ["6.1", "6.2", "6.3"]
+                },
+                {
+                    "titre": "Le sang des comètes",
+                    "numero": "08",
+                    "idSerie": "18",
+                    "idAuteur": "10",
+                    "prix": "14.50",
+                    "idAlbum": "7",
+                    "nomAuteur": "Arleston, Tarquin",
+                    "nomSerie": "Lanfeust des étoiles",
+                    "infosTitre": "Le sang des comètes - Lanfeust des étoiles - Arleston, Tarquin",
+                    "infosAuteur": "Arleston, Tarquin - Lanfeust des étoiles - Le sang des comètes",
+                    "infosSerie": "Lanfeust des étoiles - Le sang des comètes - Arleston, Tarquin",
+                    "exemplaires": 4,
+                    "stock": 3,
+                    "cdeDispo": ["7.1", "7.2", "7.3"]
+                },
+                {
+                    "titre": "La bête fabuleuse",
+                    "numero": "08",
+                    "idSerie": "9",
+                    "idAuteur": "10",
+                    "prix": "14.50",
+                    "idAlbum": "8",
+                    "nomAuteur": "Arleston, Tarquin",
+                    "nomSerie": "Lanfeust de Troy",
+                    "infosTitre": "La bête fabuleuse - Lanfeust de Troy - Arleston, Tarquin",
+                    "infosAuteur": "Arleston, Tarquin - Lanfeust de Troy - La bête fabuleuse",
+                    "infosSerie": "Lanfeust de Troy - La bête fabuleuse - Arleston, Tarquin",
+                    "exemplaires": 2,
+                    "stock": 2,
+                    "cdeDispo": ["8.1", "8.2"]
+                },
+                {
+                    "titre": "(Avant la quête) L'ami Javin",
+                    "numero": "A01",
+                    "idSerie": "22",
+                    "idAuteur": "18",
+                    "prix": "14.10",
+                    "idAlbum": "9",
+                    "nomAuteur": "Le Tendre, Loisel, Lidwine",
+                    "nomSerie": "La quête de l'oiseau du temps",
+                    "infosTitre": "(Avant la quête) L'ami Javin - La quête de l'oiseau du temps - Le Tendre, Loisel, Lidwine",
+                    "infosAuteur": "Le Tendre, Loisel, Lidwine - La quête de l'oiseau du temps - (Avant la quête) L'ami Javin",
+                    "infosSerie": "La quête de l'oiseau du temps - (Avant la quête) L'ami Javin - Le Tendre, Loisel, Lidwine",
+                    "exemplaires": 1,
+                    "stock": 1,
+                    "cdeDispo": ["10.1"]
+                },
+                {
+                    "titre": "Le sens de la vie",
+                    "numero": "12",
+                    "idSerie": "23",
+                    "idAuteur": "19",
+                    "prix": "10.50",
+                    "idAlbum": "10",
+                    "nomAuteur": "Zep",
+                    "nomSerie": "Titeuf",
+                    "infosTitre": "Le sens de la vie - Titeuf - Zep",
+                    "infosAuteur": "Zep - Titeuf - Le sens de la vie",
+                    "infosSerie": "Titeuf - Le sens de la vie - Zep",
+                    "exemplaires": 4,
+                    "stock": 3,
+                    "cdeDispo": ["11.1", "11.2", "11.4"]
+                }
+            ]
+            return tInfos;
+        }
+
+        function nbrExemplaireBd() {
+            for (i = 0; i < tInfos.length; i++) {
+                var nbr = Math.floor(Math.random() * 5 + 1); //entre 1 et 5
+                tInfos[i].exemplaires = nbr;
+            }
+
+        }
+        function stockAleatoire() {
+            for (i = 0; i < tInfos.length; i++) {
+                var stock = Math.floor(Math.random() * (tInfos[i].exemplaires + 1)); //5
+                tInfos[i].stock = stock
+            }
+            return stock
+        }
+        // ajouté cdeDispo a tInfos
+        function codeBdAleatoire() {
+            console.log(tInfos)
+            for (i = 0; i < tInfos.length; i++) {
+
+                var stock = tInfos[i].stock;
+                var nbrExemplaires = tInfos[i].exemplaires;
+                var ref = tInfos[i].idAlbum + ".";
+
+                var tCode = [];
+                var compteur = 0;
+
+                var code = Math.floor(Math.random() * nbrExemplaires + 1);
+                while (compteur < stock) {
+                    if (!tCode.includes(ref + code)) {
+                        tCode.push(ref + code);
+                        compteur++;
+                    } else {
+                        var code = Math.floor(Math.random() * nbrExemplaires + 1);
+                    }
+                }
+                tCode.sort();
+
+                tInfos[i].cdeDispo = tCode;
+
+            }
+
+        }
+    </script>
+
 </body>
+
 </html>
