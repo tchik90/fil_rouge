@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Open+Sans&family=Oswald&family=PT+Sans+Narrow&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Luckiest+Guy&family=Open+Sans&family=Oswald&family=PT+Sans+Narrow&family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f8d0d04345.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/impression.css" media="print">
+
+    <script src="script/albums.js"></script>
+    <script src="script/series.js"></script>
+    <script src="script/auteurs.js"></script>
+    <script src="script/infos_bd.js" defer></script> <!-- ce script permet d'avoir toutes les informations nécessaires classés avec des objets dans un tableau -->
+
+    <script src="script/recherche_bd.js" defer></script>
+    
+    
+    <title>Fil Rouge</title>
+</head>
+<body>
+    <main>
+        <header>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        <img src="images/BDthèque.png" alt="Logo BDthèque" class="logonav">
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <a class="nav-link mx-3" aria-current="page" href="index.html">
+                            <img src="images/BDthèque.png" alt="Logo BDthèque" class="logonav d-md-none d-lg-block">
+                        </a>
+                        <div class="vr mx-3"></div>
+                        <a class="nav-link px-3" aria-current="page" href="index.html">Accueil</a>
+                        <a class="nav-link active px-3" href="recherche.html">Rechercher une BD</a>
+                        <!-- <a class="nav-link px-3" href="bibliothecaire.html"><i class="fa-solid fa-lock"></i> Espace Bibliothécaire</a>
+                        <a class="nav-link px-3" href="administrateur.html"><i class="fa-solid fa-lock"></i> Espace Administrateur</a> -->
+                        <a class="nav-link px-3" href="connexion.html"><i class="fa-regular fa-user"></i> Connexion</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+    <!-- RECHERCHE -->
+        <div class="container mt-5 text-center recherche">
+            <div class="d-flex">
+                <select name="profession" class="form-select" id="option" style="width: 10em;">
+                    <option value="titre">Titre</option>
+                    <option value="auteur">Auteur</option>
+                    <option value="serie">Série</option>
+                </select>
+
+                <input list="listSearch" class="input form-control mx-2" id="searchInput" type="search" placeholder="rechercher...">
+                <button class="btn btn-outline-success" type="button" id="btnSearch">Rechercher</button>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <select id="afficheSuggestion" style="display: none; overflow: hidden;" class="form-select form-select-lg mt-3 w-lg-75"></select>     
+            </div>
+        </div>
+
+        <!-- BOUTON IMPRIMER -->
+        <div class="d-flex justify-content-center mt-3" id="masquePrint">
+            <button class="btn btn-outline-success" type="button" id="btnPrint" style="display: none;">Imprimer</button>
+        </div>
+
+        <!-- CARTE -->
+        <div class="d-flex justify-content-center flex-wrap" id="carteCache"></div>
+
+    </main>
+    <footer class="monFooter text-center mt-5">
+    <div class="container p-1 px-5">
+        <hr>
+    </div>
+    <div class="text-center pb-3">
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-twitter"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-google"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-instagram"></i>
+            </a>
+            <span class="ms-5">@2023 Centre culturel des Marmusots. All rights reserved.</span>
+    </div>
+    </footer>
+    <!-- <script src="../ressources/data/albums.js"></script>     -->
+</body>
+</html>

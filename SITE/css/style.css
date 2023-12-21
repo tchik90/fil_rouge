@@ -1,0 +1,123 @@
+/* CEST LE BON */
+body {
+    --orange : #ffcc00;
+    --gris : #777E90;
+    --background : #D9D9D9;
+    
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+}
+
+header, footer {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+}
+.monFooter {
+    background-color: var(--orange);
+    color: var(--gris);
+    font-family: 'DM Sans', sans-serif;
+}
+  
+h1 {
+    font-family: 'Luckiest Guy', cursive;
+    color: var(--orange);
+    text-align: center;
+    text-shadow: 5px 5px 15px black;
+}
+
+/* --- NAV BARRE --- */
+.navPrincipale {
+    box-shadow: 0px 5px 5px var(--gris);
+}
+.nav-link {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1em;
+    color: var(--gris);
+}
+nav .active {
+    color: var(--orange);
+    box-shadow: 1px 1px 1px;
+}
+.logonav {
+    width: 6em;
+}
+
+
+
+.vr {
+    opacity: 0.1;
+}
+
+.carousel {
+    background-color: white;
+    border-radius: 10px;
+    width: 70%;
+}
+
+.imgCaroussel {
+    width: 70%;
+    border-radius: 10px;
+}
+
+.textCaroussel {
+    align-items: center;
+    flex-direction: column;
+}
+
+.nouveautes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center ;
+}
+
+/* --- BOUTONS --- */
+.btn {
+    background-color: var(--orange);
+    color: black;
+    border: none;
+}
+.btn:hover {
+    background-color: var(--orange);
+    color: black;
+    box-shadow: 5px 5px 10px var(--gris);
+}
+
+
+/* --- SUGGESTIONS --- */
+.suggestion {
+    cursor: pointer;
+    list-style-type: none;
+}
+.suggestion:hover {
+    background-color: var(--background);
+    border-radius: 5px;
+}
+
+#zoneErreurPrenom, #zoneErreurNom, #zoneErreurMail, #zoneErreurUpdatePrenom, #zoneErreurUpdateNom, #zoneErreurUpdateMail, #zoneErreurCodeUser {
+    color: red;
+}
+
+.label {
+    display: flex;
+}
+
+.orange {
+    background: var(--orange);
+}
+
+
+@media screen and (min-width: 996px) {
+    .graphique {
+        width: 150%;
+    }
+}

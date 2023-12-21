@@ -1,0 +1,5 @@
+/* SELECTION DES ID (#) ou CLASS (.) A MASQUER */
+
+.nav-link, .recherche, .btn, #btnPrint, #masquePrint {
+    display: none;
+}
