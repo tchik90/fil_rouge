@@ -59,10 +59,6 @@ searchInput.addEventListener('keyup', function(){
             suggestion += '<option id="suggestions" class="p-1 suggestion" value="' + tResult[i] + '">' + tResult[i] + '</option>';
         }
 
-        // affichage "size=" en fonction du nombre de suggestion 
-        // var nbrAfficheListe = 10;
-        // if(tResult.length < 10) nbrAfficheListe = tResult.length;
-
         afficheSuggestion.setAttribute("size", tResult.length);
         afficheSuggestion.innerHTML = suggestion;
 
@@ -92,10 +88,6 @@ searchInput.addEventListener('keyup', function(){
         for(let i=0; i < tResult.length; i++) {   
             suggestion += '<option id="suggestions" class="p-1 suggestion" value="' + tResult[i] + '">' + tResult[i] + '</option>';
         }
-        
-        // affichage "size=" en fonction du nombre de suggestion 
-        // var nbrAfficheListe = 10;
-        // if(tResult.length < 10) nbrAfficheListe = tResult.length;
 
         afficheSuggestion.setAttribute("size", tResult.length);
         afficheSuggestion.innerHTML = suggestion;
@@ -126,10 +118,6 @@ searchInput.addEventListener('keyup', function(){
         for(let i=0; i < tResult.length; i++) {   
             suggestion += '<option id="suggestions" class="p-1 suggestion" value="' + tResult[i] + '">' + tResult[i] + '</option>';
         }
-        
-        // affichage "size=" en fonction du nombre de suggestion 
-        // var nbrAfficheListe = 10;
-        // if(tResult.length < 10) nbrAfficheListe = tResult.length;
 
         afficheSuggestion.setAttribute("size", tResult.length);
         afficheSuggestion.innerHTML = suggestion;
@@ -244,7 +232,7 @@ function affichageCartes(result) {
         //"<p class='card-text my-1 mt-3'>id Série : "+result[i].idSerie+"</p>" +   
         //"<p class='card-text my-1'>id Auteur : "+result[i].idAuteur+"</p>" +
         "</div>" +
-        "<a href='#' class='btn btn-primary m-1'>Emprunter</a>" +
+        //"<a href='#' class='btn btn-primary m-1'>Emprunter</a>" +
         //"</div>" +
         "</div>";
     }
