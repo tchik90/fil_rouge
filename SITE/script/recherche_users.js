@@ -33,6 +33,7 @@ var afficheAbonnement = document.querySelector("span#abonnement");
 var afficheEmprunt = document.querySelector("span#bdEmprunt");
 var afficheRetard = document.querySelector("span#bdRetard");
 var afficheAmende = document.querySelector("span#amende");
+var afficheDateAdhesion = document.querySelector("span#dateAdhesion");
 
 var afficheAuteur = document.querySelector("span#infoAuteur");
 var afficheTitre = document.querySelector("span#infoTitre");
@@ -99,7 +100,7 @@ function rechercheUser(){
             icon: "error"
         });
     }
-  
+  // recherche avec nom ou code adhérent ?
     if (optionSelect === "cde") {
         var result = tUsers.filter(item => item.cdeUser.toString().includes(input));
     } else if (optionSelect === "nom")  {
@@ -111,7 +112,7 @@ function rechercheUser(){
             text: "Le nom ou le code utilisateur saisie n'existe pas.",
             icon: "error"
         });  
-
+        
     }
     
     // afficher les infos utilisateur
@@ -132,9 +133,11 @@ function rechercheUser(){
     }
 
     // BD emprunté à 3 ?
+    var nombreTotalBD = result[0].bdEmprunt.length;
+
     if(result[0].bdEmprunt == "3") {
         afficheEmprunt.style.color = "red";
-        afficheEmprunt.textContent = result[0].bdEmprunt;
+        afficheEmprunt.innerHTML =`${nombreTotalBD}<br>` + result[0].bdEmprunt.map(bd => `Code BD: ${bd.cdeBd} 'Date: ${bd.date}`).join('<br>');
         btnDepot.style.display = "";
     } 
     if(result[0].bdEmprunt.length == "0"){
@@ -146,15 +149,15 @@ function rechercheUser(){
     }
     else {
         afficheEmprunt.style.color = "green";
-        afficheEmprunt.textContent = result[0].bdEmprunt.map(bd => `Code BD: ${bd.cdeBd} Date: ${bd.date}`).join('\n');
-        btnDepot.style.display = "";
+        afficheEmprunt.innerHTML =`${nombreTotalBD}<br>` + result[0].bdEmprunt.map(bd => `Code BD: ${bd.cdeBd}<br> Date: ${bd.date}`).join('<br>');
+
         btnEmprunt.style.display = "none";
     }
 
     // BD en retard ?
     if(result[0].bdRetard > "0") {
         afficheRetard.style.color = "red";
-        afficheRetard.textContent = result[0].bdRetard.map(bd => `Cde: ${bd.cdeBd}\nDate: ${bd.date}`).join(', ');
+        afficheRetard.innerHTML = result[0].bdRetard.map(bd => `Cde: ${bd.cdeBd} Date: ${bd.date}`).join('<br>');
         btnRetard.style.display = "";
     } else {
         afficheRetard.style.color = "green";
@@ -172,6 +175,20 @@ function rechercheUser(){
         afficheAmende.style.color = "green";
         afficheAmende.textContent = result[0].amende;
     }
+
+// Date d'adhésion :
+if(result[0].dateCotisation){
+    afficheDateAdhesion.style.color = "green";
+    afficheDateAdhesion.innerHTML = result[0].dateCotisation;
+    console.log(result[0])
+}
+else    {
+    afficheDateAdhesion.style.color = "red";
+    afficheDateAdhesion.innerHTML = "Non renseignés dans nos tests"
+
+}
+
+
 //    controleUser()
 };
 

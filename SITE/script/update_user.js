@@ -34,7 +34,15 @@ btnSearchUpdateUser.addEventListener('click', (e) => {
 
     }
     else {
-        alert("Le code utilisateur saisie n'existe pas");
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: "Le code adhérent saisie n'existe pas",
+            allowOutsideClick: false,
+            focusConfirm: false,
+            confirmButtonText: `D'ACCORD`,
+            confirmButtonColor: '#ffcc00',
+          });
         return;
     }
 
@@ -73,7 +81,15 @@ btnUpdateUser.addEventListener('click', (e) => {
 // on contrôle que l'email n'existe pas déjà en dehors de notre tableau
 
     if (!emailIsUnique(updateMail,ExcludedtUsers)) {
-        alert("L'adresse mail existe déjà; veuillez en saisir une nouvelle");
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Le mail saisi est déjà utilisé, veuillez en saisir une nouvelle',
+            allowOutsideClick: false,
+            focusConfirm: false,
+            confirmButtonText: `D'ACCORD`,
+            confirmButtonColor: '#ffcc00',
+          });
         return;
     } // on met à jours notre tableau 
     else {

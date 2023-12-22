@@ -4,8 +4,7 @@ var btnClear = document.getElementById('btnClear');
 var zoneErreurPrenom = document.getElementById("zoneErreurPrenom");
 var zoneErreurNom = document.getElementById("zoneErreurNom");
 var zoneErreurMail = document.getElementById("zoneErreurMail");
-
-
+var dateAdhesion;
 
 if (localStorage.getItem('users') != null) {
     // récupération sous forme de tableau
@@ -47,10 +46,19 @@ btnCreate.addEventListener('click', (e) => {
 
     let emailIsUnique = tUsers.every(user => user.mail !== newMail);
     if (!emailIsUnique) {
-        alert("Err: Le mail saisi est déjà utilisé");
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Le mail saisi est déjà utilisé',
+            allowOutsideClick: false,
+            focusConfirm: false,
+            confirmButtonText: `D'ACCORD`,
+            confirmButtonColor: '#ffcc00',
+          });
         return;
     }
 
+    dateAdhesion = new Date().toLocaleDateString();
       for (let i = 1; i <= tUsers.length + 1; i++) {
   
         let codeExists = tUsers.some(user => user.cdeUser === i);
@@ -59,12 +67,15 @@ btnCreate.addEventListener('click', (e) => {
             newCodeUser = i;
             tUsers.push({
                 nom: newNom + " " + newPrenom,
+                dateCotisation: dateAdhesion,
                 cdeUser: newCodeUser,
                 mail: newMail,
                 abonne: "oui",
-                amende: "0",
-                bdEmprunt: 0,
-                bdRetard: 0,
+                amende: 0,
+                bdEmprunt: [
+                ], 
+                bdRetard: [
+                ]
             });
             swal.fire({
                 title: "Création",
@@ -73,6 +84,7 @@ btnCreate.addEventListener('click', (e) => {
             });
             localStorage.setItem('users', JSON.stringify(tUsers));
             break;
+            
         }
     }
 document.getElementById("createPrenom").value = "";
