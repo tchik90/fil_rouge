@@ -69,30 +69,30 @@ function connexion() {
 function redirectToDashboard(role) {
     switch (role) {
         case 1:
-            Swal.fire({
-                title: 'Bienvenue!',
-                text: 'Vous êtes sur le dashboard bibliothécaire.',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
+            // Swal.fire({
+            //     title: 'Bienvenue!',
+            //     text: 'Vous êtes sur le dashboard bibliothécaire.',
+            //     icon: 'success',
+            //     confirmButtonText: 'OK'
+            // });
             window.location.assign("bibliothecaire.html");
             break;
         case 2:
-            Swal.fire({
-                title: 'Bienvenue!',
-                text: 'Vous êtes sur le dashboard Admin.',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
+            // Swal.fire({
+            //     title: 'Bienvenue!',
+            //     text: 'Vous êtes sur le dashboard Admin.',
+            //     icon: 'success',
+            //     confirmButtonText: 'OK'
+            // });
             window.location.assign("administrateur.html");
             break;
         case 3:
-            Swal.fire({
-                title: 'Bienvenue!',
-                text: 'Vous êtes sur le dashboard Responsable.',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
+            // Swal.fire({
+            //     title: 'Bienvenue!',
+            //     text: 'Vous êtes sur le dashboard Responsable.',
+            //     icon: 'success',
+            //     confirmButtonText: 'OK'
+            // });
             window.location.assign("responsable_stats_emprunt.html");
             break;
         // Ajoutez d'autres rôles au besoin
