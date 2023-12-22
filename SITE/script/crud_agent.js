@@ -55,17 +55,11 @@ function afficherAgents() {
         cellRole.textContent = agent.role;
 
         // Ajouter les boutons d'action
-        var modifierBtn = document.createElement('button');
-        modifierBtn.className = 'modifierAgentBtn btn btn-primary';
-        modifierBtn.setAttribute('data-index', index);
-        modifierBtn.textContent = 'Modifier';
-
         var supprimerBtn = document.createElement('button');
         supprimerBtn.className = 'supprimerAgentBtn btn btn-danger';
         supprimerBtn.setAttribute('data-index', index);
         supprimerBtn.textContent = 'Supprimer';
 
-        cellActions.appendChild(modifierBtn);
         cellActions.appendChild(supprimerBtn);
     });
 
@@ -92,10 +86,6 @@ function ajouterAgent(identifiant, mdp, role) {// Vérifier si l'identifiant exi
     Swal.fire('Succès', 'Agent ajouté avec succès !', 'success');
 }
 
-
-
-
-
 // Fonction pour modifier un agent
 function modifierAgent(identifiant, mdp, index) {
     // Vérifier si l'identifiant est déjà utilisé
@@ -119,9 +109,6 @@ function modifierAgent(identifiant, mdp, index) {
 }
 
 
-
-
-
 // Fonction pour vérifier si un identifiant existe déjà
 function identifiantExiste(identifiant, index) {
     return objMediatheque.some((agent, i) => i !== index && agent.identifiant === identifiant);
@@ -130,23 +117,11 @@ function identifiantExiste(identifiant, index) {
 // Fonction pour ouvrir le formulaire en mode ajout ou modification
 function ouvrirFormulaire(type, index) {
     var formulaireAjout = document.getElementById('formulaireAgentAjout');
-    var formulaireModifier = document.getElementById('formulaireAgentModifier');
-    var titreFormulaire = document.getElementById('titreFormulaire');
 
     if (type === 'ajouter') {
         formulaireAjout.classList.remove('d-none');
-        formulaireModifier.classList.add('d-none');
-        titreFormulaire.textContent = 'Ajouter agent';
-    } else if (type === 'modifier') {
-        formulaireAjout.classList.add('d-none');
-        formulaireModifier.classList.remove('d-none');
-        titreFormulaire.textContent = 'Modifier agent';
-
-        // Remplir le formulaire avec les données de l'agent à modifier
-        document.getElementById('identifiantModifier').value = objMediatheque[index].identifiant;
-        document.getElementById('mdpModifier').value = objMediatheque[index].mdp;
-        document.getElementById('roleModifier').value = objMediatheque[index].role;
-        document.getElementById('indexModifier').value = index;
+        // Retirez la ligne suivante si vous ne prévoyez pas d'utiliser l'élément titreFormulaire
+        document.getElementById('titreFormulaire').textContent = 'Ajouter agent';
     }
 }
 
@@ -161,37 +136,20 @@ document.getElementById('formulaireAjout').addEventListener('submit', function (
     ajouterAgent(identifiant, mdp, role);
 });
 
-// Gestionnaire d'événement pour soumettre le formulaire de modification
-document.getElementById('formulaireModifier').addEventListener('submit', function (event) {
-    event.preventDefault();
 
-    var identifiant = document.getElementById('identifiantModifier').value;
-    var mdp = document.getElementById('mdpModifier').value;
-    var index = document.getElementById('indexModifier').value;
-
-    modifierAgent(identifiant, mdp, index);
-});
-
-// Gestionnaire d'événement pour annuler l'ajout ou la modification
+// Gestionnaire d'événement pour annuler l'ajout
 document.getElementById('annulerFormulaireAjoutBtn').addEventListener('click', function() {
     fermerFormulaire();
 });
 
-document.getElementById('annulerFormulaireModifierBtn').addEventListener('click', function() {
-    fermerFormulaire();
-});
 
 // Fonction pour fermer le formulaire
 function fermerFormulaire() {
     var formulaireAjout = document.getElementById('formulaireAgentAjout');
-    var formulaireModifier = document.getElementById('formulaireAgentModifier');
-
     formulaireAjout.classList.remove('d-none');
-    formulaireModifier.classList.add('d-none');
 
     // Réinitialiser le formulaire
     document.getElementById('formulaireAjout').reset();
-    document.getElementById('formulaireModifier').reset();
 }
 
 // Fonction pour supprimer un agent
@@ -242,7 +200,7 @@ document.addEventListener('click', function(event) {
     } else if (event.target.classList.contains('supprimerAgentBtn')) {
         var index = event.target.getAttribute('data-index');
         supprimerAgent(index);
-    } else if (event.target.id === 'annulerFormulaireAjoutBtn' || event.target.id === 'annulerFormulaireModifierBtn') {
+    } else if (event.target.id === 'annulerFormulaireAjoutBtn') {
         fermerFormulaire();
     }
 });
