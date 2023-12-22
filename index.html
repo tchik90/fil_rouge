@@ -90,12 +90,12 @@
             localStorage.setItem('users', JSON.stringify(tUsers));
             localStorage.setItem('bds', JSON.stringify(tDixBds));
 
-            alert("Local Storage remis à zéro")
+            alert("Local Storage remis à zéro et de nouveau chargés")
         };
         // CLIC SUR VIDER LT
         clearLT.onclick = () => {
             localStorage.clear()
-            alert("Local Storage vidé")
+            alert("Local Storage vidé, attention ! Il n'y plus de local storage")
         }
 
         function recupBds() {
