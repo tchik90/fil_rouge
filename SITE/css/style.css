@@ -80,6 +80,11 @@ nav .active {
     justify-content: center ;
 }
 
+.img-new {
+    max-height: 250px;
+    object-fit: cover;
+}
+
 /* --- BOUTONS --- */
 .btn {
     background-color: var(--orange);
