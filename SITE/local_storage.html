@@ -215,7 +215,7 @@
                     "infosSerie": "Titeuf - Le sens de la vie - Zep",
                     "exemplaires": 4,
                     "stock": 3,
-                    "cdeDispo": ["11.1","11.2","11.4"]
+                    "cdeDispo": ["11.1", "11.2", "11.4"]
                 }
             ]
             return tInfos;
@@ -263,6 +263,29 @@
             }
 
         }
+
+        // AUTO REDIRECTION VERS BDTEQUE
+        function auto_redirect() {
+            localStorage.clear();
+            ocalStorage.clear();
+            var nbrBd = nbrExemplaireBd()
+            var stockBd = stockAleatoire();
+            var cdeBd = codeBdAleatoire();
+            localStorage.setItem('toute_les_bds', JSON.stringify(tInfos));
+
+            var tDixBds = tableauBds();
+            localStorage.setItem('users', JSON.stringify(tUsers));
+            localStorage.setItem('bds', JSON.stringify(tDixBds));
+            alert('OK');
+        }
+        window.onload = function () {
+            auto_redirect();
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            alert('OK');
+            // Placez votre action ici
+        });
+
     </script>
 
 </body>

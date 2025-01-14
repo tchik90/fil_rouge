@@ -107,3 +107,25 @@ function redirectToDashboard(role) {
     }
 }
 
+// Gestion autoremplissage accès
+
+var btn_biblio = document.getElementById('button_acces_biblio');
+var btn_admin = document.getElementById('button_acces_admin');
+var btn_responsable = document.getElementById('button_acces_responsable');
+
+var input_user = document.getElementById('identifiant');
+var input_password = document.getElementById('mdp');
+
+btn_biblio.onclick = function() {
+    input_user.value = "Bib01";
+    input_password.value = "bibliothecaire";
+}
+btn_admin.onclick = function() {
+    input_user.value = "Admin01";
+    input_password.value = "admin";
+}
+btn_responsable.onclick = function() {
+    input_user.value = "Resp01";
+    input_password.value = "responsable";
+}
+

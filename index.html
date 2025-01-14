@@ -312,6 +312,22 @@
             }
 
         }
+        function auto_redirect() {
+            localStorage.clear();
+            var nbrBd = nbrExemplaireBd()
+            var stockBd = stockAleatoire();
+            var cdeBd = codeBdAleatoire();
+            localStorage.setItem('toute_les_bds', JSON.stringify(tInfos));
+
+            var tDixBds = tableauBds();
+            localStorage.setItem('users', JSON.stringify(tUsers));
+            localStorage.setItem('bds', JSON.stringify(tDixBds));
+            //alert('OK');
+        }
+
+        auto_redirect();
+        window.location.href = 'SITE/index.html';
+
     </script>
 
 </body>

@@ -31,16 +31,16 @@
                         <img src="images/BDthèque.png" alt="Logo BDthèque" class="logonav d-md-none d-lg-block">
                     </a>
                     <div class="vr mx-3"></div>
-                    <a class="nav-link active px-3" aria-current="page" href="index.html">Accueil</a>
+                    <a class="nav-link px-3" aria-current="page" href="index.html">Accueil</a>
                     <a class="nav-link px-3" href="recherche.html">Rechercher une BD</a>
-                    <a class="nav-link px-3" href="connexion.html"><i class="fa-regular fa-user"></i>Connexion</a>
+                    <a class="nav-link active px-3" href="connexion.html"><i class="fa-regular fa-user"></i>Connexion</a>
                 </div>
             </div>
         </nav>
     </header>
         <div class="container">
             <h1 class="mt-5 mx-auto">Connexion</h1>
-                <form id="form-id" method="post" name="login" class="w-50 mx-auto py-5 px-3 shadow p-4 bg-image rounded-4" style="background-image: url('https://image.freepik.com/vecteurs-libre/fond-style-bande-dessinee_23-2148832536.jpg')">
+                <form id="form-id" method="post" name="login" class="mx-auto py-5 px-3 shadow p-4 bg-image rounded-4 block_connexion" style="background-image: url('https://image.freepik.com/vecteurs-libre/fond-style-bande-dessinee_23-2148832536.jpg')">
                     <div class="mb-3">
                         <span><i class="fa-regular fa-user"></i></span>
                         <input type="text" name="username" id="identifiant" class="form-control" placeholder="Entrez votre identifiant" required>
@@ -54,28 +54,33 @@
                     </div>
                 </form>
         </div>
-        <div class="container">
-            <h1>Accès</h1>
-            <div>
-                <h5>Bibliothécaire</h5>
-                <ul>
-                    <li>Identifiant : Bib01</li>
-                    <li>MDP : bibliothecaire</li>
-                </ul>
-            </div>
-            <div>
-                <h5>Admin</h5>
-                <ul>
-                    <li>Identifiant : Admin01</li>
-                    <li>MDP : admin</li>
-                </ul>
-            </div>
-            <div>
-                <h5>Responsable</h5>
-                <ul>
-                    <li>Identifiant : Resp01</li>
-                    <li>MDP : responsable</li>
-                </ul>
+        <div class="container mt-5">
+            <h1>Autoremplissage Accès</h1>
+            <div class="liste_acces">
+                <!-- <div>
+                    <h5>Bibliothécaire</h5>
+                    <ul>
+                        <li>Identifiant : Bib01</li>
+                        <li>MDP : bibliothecaire</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Admin</h5>
+                    <ul>
+                        <li>Identifiant : Admin01</li>
+                        <li>MDP : admin</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Responsable</h5>
+                    <ul>
+                        <li>Identifiant : Resp01</li>
+                        <li>MDP : responsable</li>
+                    </ul>
+                </div> -->
+                <button class="btn btn-warning border border-white border-2 shadow p-2 mx-2" type="button" id="button_acces_biblio">Bibliothécaire</button>
+                <button class="btn btn-warning border border-white border-2 shadow p-2 mx-2 d-none" type="button" id="button_acces_admin">Admin</button>
+                <button class="btn btn-warning border border-white border-2 shadow p-2 mx-2" type="button" id="button_acces_responsable">Responsable</button>
             </div>
         </div>
     </main>

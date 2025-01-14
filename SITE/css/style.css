@@ -120,9 +120,39 @@ nav .active {
     background: var(--orange);
 }
 
+.block_connexion {
+    width: 45%;
+}
+
+.liste_acces {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    width: 80%;
+}
+
 
 @media screen and (min-width: 996px) {
     .graphique {
         width: 150%;
+    }
+}
+
+/* EN DESSOUS DE */
+@media screen and (max-width: 992px) {
+    .block_connexion {
+        width: 60%;
+    }
+    .liste_acces {
+        width: 90%;
+    }
+}
+@media screen and (max-width: 767px) {
+    .block_connexion {
+        width: 80%;
+    }
+    .liste_acces {
+        width: 100%;
+        font-size: 0.9em;
     }
 }
